@@ -5,7 +5,7 @@ def pdf2image(filepath):
 	from wand.color import Color
 	#from PIL import Image
 	
-	with Image(filename = filepath, resolution=200) as img:
+	with wand.image.Image(filename = filepath, resolution=200) as img:
 		img.format = 'jpeg'
 		img.compression_quality = 99
 		img.save(filename='winter.jpg')
