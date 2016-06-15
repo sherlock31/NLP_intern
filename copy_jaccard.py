@@ -1,5 +1,5 @@
 import sys
- 
+
 SHINGLE_SIZE = 5
  
 def get_shingles(f, size):

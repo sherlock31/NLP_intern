@@ -1,0 +1,12 @@
+import nltk
+import enchant
+from enchant.checker import SpellChecker
+
+def spell_checker(text_path):
+	eng_checker = SpellChecker("en_US")
+	text_data = open(text_path)
+	raw_text = text_data.read()
+	
+	
+
+
