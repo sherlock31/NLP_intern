@@ -5,5 +5,5 @@ def ocr(filepath):
 	"This function takes path to an a pdf file as output ,runs OCR on it using Google's Tesseract OCR engine and stores the textual data in a text file"
 	pdf2image(filepath)
 	image_path = filepath.replace('.pdf', '.jpg')		#Name of the image that will be saved will be same as the name of the pdf
-	image2txt(image_path)								
+	image2txt(image_path)								#/home/sherlock31/Desktop/Intern/Testing/labfiles-set1_0027.pdf
 	print "OCR is finished successfully"
