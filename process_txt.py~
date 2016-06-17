@@ -1,8 +1,8 @@
-import nltk, pprint
+import nltk
 def process_txt(filepath):
 	"This function accepts a path to a .txt file and returns a lemmatized,tokenized list of words in the imput .txt file"
 	
-	
+	#SOME PAIN WITH FILE ENCODING THING, MAKE IT MORE SMART, CHECK FOR ENCODINGS AND THEN USE IT, you have downloaded some stuff for it
 	
 	text_file = open(filepath)														#opening the file located at the filepath
 	raw_text_file = text_file.read()												#storing the raw content of file in raw_text_file

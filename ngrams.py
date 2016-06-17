@@ -215,7 +215,9 @@ def correct(w):
     #IMPLEMENT CHECKING FOR NUMBERS AND SPECIAL CHARACTERS
     #ALSO CHANGE THE IMAGES INTO BLACK AND WHITE AND THEN RUN THE OCR, MAYBE YOU WILL GEt better results also rotate the text to make it horizontal!
     
-    
+    #if(w.isdigit):
+    	#return w
+    #FOR SOME REASON BEYOND MY COMPREHENSION, CHECKING FOR NUMBERS AND SPECIAL CHARACTERS ISNT WORKING DO IT LATER
     
     
     

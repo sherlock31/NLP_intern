@@ -7,7 +7,7 @@ def pdf2image(filepath):
 	image_path = filepath.replace('.pdf','.jpg')			#Name of the image that will be saved will be same as the name of the pdf			
 	
 	with Image(filename = filepath, resolution = 400) as img:
-		img.format = 'jpeg'
+		img.format = 'jpeg'									
 		img.compression_quality = 99
 		img.type = 'grayscale'
 		img.save(filename = image_path)
