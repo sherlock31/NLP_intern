@@ -211,14 +211,19 @@ def corrections(text):
     return re.sub('[a-zA-Z]+', lambda m: correct(m.group(0)), text) 
 
 def correct(w): 
-    "Return the word that is the most likely spell correction of w." 
+    "Return the word that is the most likely spell correction of w."
+    #IMPLEMENT CHECKING FOR NUMBERS AND SPECIAL CHARACTERS
     
-    if(not (w.isaplha)):
-    	print "It's not an alphabet"
+    
+    
+    
+    
+    
+    candidates = edits(w).items()
+    
+    if(not candidates):												#If no candidate was found then return the word as it is
     	return w
-    
-    else:	
-    	candidates = edits(w).items() 
+    else: 
     	c, edit = max(candidates, key=lambda (c,e): Pedit(e) * Pw(c)) 
     	return c 
 
