@@ -9,6 +9,7 @@ def pdf2image(filepath):
 	with Image(filename = filepath, resolution = 400) as img:
 		img.format = 'jpeg'									
 		img.type = 'grayscale'
+		img.compression_quality = 100
 		img.save(filename = image_path)
 		print "PDF has been converted into an image"
 		

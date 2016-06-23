@@ -12,6 +12,6 @@ def pre_process_image(imagepath):
 	img = 255 - img
 	improved_img = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 21)#Noise Removal
 	print "Noise removal is finished"
-	improv_path =  imagepath.replace('.jpg', '_improved_without_nr.jpg')
+	improv_path =  imagepath.replace('.jpg', '_improved.jpg')
 	cv2.imwrite(improv_path, improved_img)
 	
