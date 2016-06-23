@@ -3,7 +3,7 @@ import numpy as np
 from math import atan2
 
 
-image_path = '/home/sherlock31/Desktop/Intern/arbit/m20.jpg' 	
+image_path = '/home/sherlock31/Desktop/Intern/arbit/p16.jpg' 	
 img = cv2.imread(image_path)
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 #edges = cv2.Canny(gray, 50, 150, apertureSize = 3)
