@@ -1,6 +1,15 @@
 import cv2
 import numpy as np
 from math import atan2
+from __future__ import division, print_function
+from skimage.transform import radon
+from PIL import Image
+from numpy import asarray, mean, array, blackman
+import numpy
+from numpy.fft import rfft
+import matplotlib.pyplot as plt
+from matplotlib.mlab import rms_flat
+from time import gmtime, strftime
 from time import time
 t = time()
 
@@ -8,25 +17,83 @@ def deskew(img_temp):
 	"This function accepts an image, finds it's skew angle and deskews it using OpenCV"
 	
 	#img_temp = cv2.imread(image_path)
-	(h_temp,w_temp) = img_temp.shape[:2]								#calculating the height and width of the image
-	gray_temp = cv2.cvtColor(img_temp,cv2.COLOR_BGR2GRAY)				#Converting it into grayscale, should do this even if the input image was grayscale
-	invert_temp = 255 - gray_temp										#inverting the image
-	minLineLength = w_temp/30											#minimum length required to be considered as a line
-	maxLineGap = 10														#maximum gap between adjacent points to be considered as part of a straight line  
+#	(h_temp,w_temp) = img_temp.shape[:2]								#calculating the height and width of the image
+#	gray_temp = cv2.cvtColor(img_temp,cv2.COLOR_BGR2GRAY)				#Converting it into grayscale, should do this even if the input image was grayscale
+#	invert_temp = 255 - gray_temp										#inverting the image
+#	minLineLength = w_temp/30											#minimum length required to be considered as a line
+#	maxLineGap = 10														#maximum gap between adjacent points to be considered as part of a straight line  
 
-	lines_temp = cv2.HoughLinesP(invert_temp, 1, np.pi/180, 100, minLineLength, maxLineGap)		#Probabilistic Hough transform 
+#	lines_temp = cv2.HoughLinesP(invert_temp, 1, np.pi/180, 100, minLineLength, maxLineGap)		#Probabilistic Hough transform 
 
-	angle_temp = 0.0													#Initializing the angle variable 
+#	angle_temp = 0.0													#Initializing the angle variable 
+#	
+#	for i in range(1, lines_temp.shape[0]):								#Calculating the angle 
+#		angle_temp = angle_temp + atan2((float(lines_temp[i][0][3]) - float(lines_temp[i][0][1])), (float(lines_temp[i][0][2]) - float(lines_temp[i][0][0])))
+#	
+#	angle_temp = float(angle_temp) / float(lines_temp.shape[0]) 		#Angle is in RADIANS
+#	angle_temp = float(angle_temp)*180.0/float(np.pi)					#Angle is in DEGREES
+#	print "Angle of skew is: ",
+#	print angle_temp
 	
-	for i in range(1, lines_temp.shape[0]):								#Calculating the angle 
-		angle_temp = angle_temp + atan2((float(lines_temp[i][0][3]) - float(lines_temp[i][0][1])), (float(lines_temp[i][0][2]) - float(lines_temp[i][0][0])))
 	
-	angle_temp = float(angle_temp) / float(lines_temp.shape[0]) 		#Angle is in RADIANS
-	angle_temp = float(angle_temp)*180.0/float(np.pi)					#Angle is in DEGREES
-	print "Angle of skew is: ",
-	print angle_temp
+	
+	try:
+    	# More accurate peak finding from
+    	# https://gist.github.com/endolith/255291#file-parabolic-py
+    	from parabolic import parabolic
+    	def argmax(x):
+        	return parabolic(x, numpy.argmax(x))[0]
+	except ImportError:
+    	from numpy import argmax
+	
+	
+
+
+
+	h,w = img_temp.size
+	if h>1000:
+    	h,w = int(h/10),int(w/10)
+
+	img = img.resize((h,w), Image.ANTIALIAS)
+	I = asarray(img.convert('L'))
+	I = I - mean(I)  # Demean; make the brightness extend above and below zero
+
+# Do the radon transform and display the result
+	sinogram = radon(I)
+# Find the RMS value of each row and find "busiest" rotation,
+# where the transform is lined up perfectly with the alternating dark
+# text and white lines
+	r = array([rms_flat(line) for line in sinogram.transpose()])
+	rotation = argmax(r)
+
+	print('Rotation: {:.2f} degrees'.format(90 - rotation))
+	print('Time: ',int(time()-t))
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	#Let's rotate the image based on the angle now!
+	#ROTATION WALA CODE
 																				#-1.12 degrees
 	center_temp = (w_temp/2, h_temp/2)											#center of the image 
 	rot_mat_temp = cv2.getRotationMatrix2D(center_temp, angle_temp, 1.0)		#rotational matrix
