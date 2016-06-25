@@ -7,7 +7,7 @@ def denoise(image_path):
 	
 	inp_img = np.asarray(Image.open(image_path))/255.0
 	
-	background_img = signal.medfilt2d(inp_img, 11)
+	background_img = signal.medfilt2d(inp_img, 49)
 	back_tmp = np.asarray(background_img * 255.0, dtype = np.uint8)
 	back_path = image_path.replace('.jpg', '_background.jpg')
 	Image.fromarray(back_tmp).save(back_path)
