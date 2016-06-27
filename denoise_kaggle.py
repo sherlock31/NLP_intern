@@ -10,12 +10,12 @@ def denoise(image_path):
 	background_img = signal.medfilt2d(inp_img, 11)
 	back_tmp = np.asarray(background_img * 255.0, dtype = np.uint8)
 	back_path = image_path.replace('.jpg', '_background.jpg')
-	Image.fromarray(back_tmp).save(back_path)
+	#Image.fromarray(back_tmp).save(back_path)
 	
 	mask_img = inp_img < background_img - 0.1
 	mask_tmp = np.asarray(mask_img * 255.0, dtype = np.uint8)
 	mask_path = image_path.replace('.jpg', '_foreground_mask.jpg')
-	Image.fromarray(mask_tmp).save(mask_path)
+	#Image.fromarray(mask_tmp).save(mask_path)
 	
 	out_img = np.where(mask_img, inp_img, 1.0)
 	out_tmp = np.asarray(out_img * 255.0, dtype = np.uint8)
