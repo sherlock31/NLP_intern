@@ -8,7 +8,7 @@ import pytesseract
 from PIL import Image
 
 def ocr(filepath):
-	"This function takes path to an a pdf/image file as output, runs OCR on it using Google's Tesseract OCR engine and stores the textual data in a text file"
+	"This function takes path to an a input file as output, runs OCR on it using Google's Tesseract OCR engine and stores the textual data in a text file"
 	
 	if(filepath.endswith('.pdf')):
 	
@@ -22,7 +22,7 @@ def ocr(filepath):
 			if(w == '/'):
 				break
 			else:
-				 name_of_pdf= name_of_pdf + w							    #name_of_pdf stores the name of the pdf(reversed)
+				name_of_pdf = name_of_pdf + w							    #name_of_pdf stores the name of the pdf(reversed)
 				
 		name_of_pdf = name_of_pdf[::-1]										#reversing the name of the pdf as it was originally reversed
 		new_path_to_file = new_folder_path + "/" + name_of_pdf				#the complete path to the PDF
@@ -41,9 +41,9 @@ def ocr(filepath):
 				list_of_images.append(temp)									#making a list in which all the names of all the converted images will be stored 
 				pre_process_image(new_path_to_image)						#preprocess all the images created from the pdf
 			
-		else:
+		else:																#If there is only one page 
 			image_path = new_folder_path + "/"+ name_of_pdf[:-4] + ".jpg"
-			pre_process_image(image_path)	#If there is only one page 
+			pre_process_image(image_path)	
 	
 		if (pages == 1):
 			image2txt(new_folder_path + "/" + name_of_pdf[:-4] + "_gray_rotated_improved.jpg")
@@ -93,13 +93,13 @@ def ocr(filepath):
 			if(w == '/'):
 				break
 			else:
-				 name_of_image= name_of_image + w						#name_of_image stores the name of the image(reversed)
+				 name_of_image = name_of_image + w						#name_of_image stores the name of the image(reversed)
 				
 		name_of_image = name_of_image[::-1]								#reversing the name of the image as it was originally reversed
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image
 		file2jpg(new_path_to_file)
 		
-		path2jpg =new_folder_path + "/" + name_of_image[-5] + ".jpg"	 
+		path2jpg =new_path_to_file.replace('.png', '.jpg')	 
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-5] + "_gray_rotated_improved.jpg")
@@ -123,7 +123,7 @@ def ocr(filepath):
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image 
 		file2jpg(new_path_to_file)
 		
-		path2jpg =new_folder_path + "/" + name_of_image[-4] + ".jpg"
+		path2jpg =new_path_to_file.replace('.png', '.jpg')
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-4] + "_gray_rotated_improved.jpg")
@@ -146,16 +146,16 @@ def ocr(filepath):
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image
 		file2jpg(new_path_to_file)
 		
-		path2jpg =new_folder_path + "/" + name_of_image[-5] + ".jpg"	 
+		path2jpg =new_path_to_file.replace('.png', '.jpg')	 
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-5] + "_gray_rotated_improved.jpg")
 		print "OCR is finished successfully"		
 		
-	elif(filepath.endswith('.tif')):
+	elif(filepath.endswith('.png')):
 		new_folder_path = filepath[:-4]	
-		os.makedirs(new_folder_path)									#make a new folder for the tif, name of the folder will be same as that of the tif
-		shutil.move(filepath, new_folder_path)							#tif is moved to the newly created of the same name 
+		os.makedirs(new_folder_path)									#make a new folder for the png, name of the folder will be same as that of the png
+		shutil.move(filepath, new_folder_path)							#png is moved to the newly created of the same name 
 		
 		name_of_image = ""
 	
@@ -166,14 +166,18 @@ def ocr(filepath):
 				 name_of_image= name_of_image + w						#name_of_image stores the name of the image(reversed)
 				
 		name_of_image = name_of_image[::-1]								#reversing the name of the image as it was originally reversed
+	 
+		
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image 
+		 
 		file2jpg(new_path_to_file)
 		
-		path2jpg =new_folder_path + "/" + name_of_image[-4] + ".jpg"
+		path2jpg =new_path_to_file.replace('.png', '.jpg')
+		
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-4] + "_gray_rotated_improved.jpg")
-		print "OCR is finished successfull	
+		print "OCR is finished successfull"	
 		
 		
 		
