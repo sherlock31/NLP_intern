@@ -13,7 +13,7 @@ import re, string, random, glob, operator, heapq
 from collections import defaultdict
 from math import log10
 
-def memo(f):
+def memo(f):																#To increase the speed of the code during reruns
     "Memoize function f."
     table = {}
     def fmemo(*args):
@@ -213,7 +213,6 @@ def corrections(text):
 def correct(w): 
     "Return the word that is the most likely spell correction of w."
     #IMPLEMENT CHECKING FOR NUMBERS AND SPECIAL CHARACTERS
-    #ALSO CHANGE THE IMAGES INTO BLACK AND WHITE AND THEN RUN THE OCR, MAYBE YOU WILL GEt better results also rotate the text to make it horizontal!
     
     #if(w.isdigit):
     	#return w

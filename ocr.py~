@@ -1,4 +1,4 @@
-from file2jpg import file2jpg
+from file2image import file2image
 from image2txt import image2txt	
 from pre_process_image import pre_process_image
 import os																		
@@ -12,30 +12,30 @@ def ocr(filepath):
 	
 	if(filepath.endswith('.pdf')):
 	
-		new_folder_path = filepath[:-4]										#removing ".pdf" from the filepath
-		os.makedirs(new_folder_path)										#make a new folder for the pdf,name of the folder will be same as that of the pdf
-		shutil.move(filepath, new_folder_path)								#pdf is moved to the newly created folder of the same name 
+		new_folder_path = filepath[:-4]									#removing ".pdf" from the filepath
+		os.makedirs(new_folder_path)									#make a new folder for the pdf, name of the folder will be same as that of the pdf
+		shutil.move(filepath, new_folder_path)							#pdf is moved to the newly created folder of the same name 
 	
 		name_of_pdf = ""
 	
-		for w in reversed(filepath):										#to find the name of the pdf from the path 
+		for w in reversed(filepath):									#to find the name of the pdf from the path 
 			if(w == '/'):
 				break
 			else:
-				name_of_pdf = name_of_pdf + w							    #name_of_pdf stores the name of the pdf(reversed)
+				name_of_pdf = name_of_pdf + w							#name_of_pdf stores the name of the pdf(reversed)
 				
-		name_of_pdf = name_of_pdf[::-1]										#reversing the name of the pdf as it was originally reversed
-		new_path_to_file = new_folder_path + "/" + name_of_pdf				#the complete path to the PDF
-		pdf = PdfFileReader(open(new_path_to_file))							#reading the PDF
-		pages = pdf.getNumPages()											#no. of pages in the PDF
+		name_of_pdf = name_of_pdf[::-1]									#reversing the name of the pdf as it was originally reversed
+		new_path_to_file = new_folder_path + "/" + name_of_pdf			#the complete path to the PDF
+		pdf = PdfFileReader(open(new_path_to_file))						#reading the PDF
+		pages = pdf.getNumPages()										#no. of pages in the PDF
 	
 		
 		 
-		file2jpg(new_path_to_file)											#Conversion of PDF into an image 
+		file2image(new_path_to_file)									#Conversion of PDF into an image 
 	
 		list_of_images = []																			
 		if (pages > 1):
-			for i in range(0,pages):
+			for i in range(0, pages):
 				temp =  name_of_pdf[:-4] + "-" + str(i) + ".jpg" 			#conversion to the naming convention in which the converted images are stored 
 				new_path_to_image = new_folder_path + "/" + temp 				
 				list_of_images.append(temp)									#making a list in which all the names of all the converted images will be stored 
@@ -97,9 +97,9 @@ def ocr(filepath):
 				
 		name_of_image = name_of_image[::-1]								#reversing the name of the image as it was originally reversed
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image
-		file2jpg(new_path_to_file)
+		file2image(new_path_to_file)
 		
-		path2jpg =new_path_to_file.replace('.png', '.jpg')	 
+		path2jpg =new_path_to_file.replace('.tiff', '.jpg')	 
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-5] + "_gray_rotated_improved.jpg")
@@ -121,9 +121,9 @@ def ocr(filepath):
 				
 		name_of_image = name_of_image[::-1]								#reversing the name of the image as it was originally reversed
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image 
-		file2jpg(new_path_to_file)
+		file2image(new_path_to_file)
 		
-		path2jpg =new_path_to_file.replace('.png', '.jpg')
+		path2jpg =new_path_to_file.replace('.tif', '.jpg')
 		pre_process_image(path2jpg)										#preprocessing the image 
 		
 		image2txt(new_folder_path + "/" + name_of_image[:-4] + "_gray_rotated_improved.jpg")
@@ -144,7 +144,7 @@ def ocr(filepath):
 				
 		name_of_image = name_of_image[::-1]								#reversing the name of the image as it was originally reversed
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image
-		file2jpg(new_path_to_file)
+		file2image(new_path_to_file)
 		
 		path2jpg =new_path_to_file.replace('.png', '.jpg')	 
 		pre_process_image(path2jpg)										#preprocessing the image 
@@ -170,7 +170,7 @@ def ocr(filepath):
 		
 		new_path_to_file = new_folder_path + "/" + name_of_image		#the complete path to the image 
 		 
-		file2jpg(new_path_to_file)
+		file2image(new_path_to_file)
 		
 		path2jpg =new_path_to_file.replace('.png', '.jpg')
 		

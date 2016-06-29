@@ -20,7 +20,7 @@ def pre_process_image(image_path):
 	
 	if((angle_rot >= -1) and (angle_rot <= 1)):
 		rotated_path = gray_path.replace('.jpg', '_rotated.jpg')
-		print "renamed path is: "
+		print "renamed23 path is: "
 		print rotated_path
 		os.rename(gray_path, rotated_path)										#Renaming the image as orig_rotated so that the code in OCR can work!
 

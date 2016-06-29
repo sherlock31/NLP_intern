@@ -7,4 +7,4 @@ def rgb2gray(image_path):
 	gray_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2GRAY)					#converting the image into grayscale
 	gray_path = image_path.replace('.jpg','_gray.jpg') 							#saving the image as original_gray.jpg
 	print "Image has been converted into grayscale" 
-	cv2.imwrite(gray_path, gray_image)
+	cv2.imwrite(gray_path, gray_image)                                             
