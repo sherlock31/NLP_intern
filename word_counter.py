@@ -8,4 +8,4 @@ def word_counter(textpath):
 		c = Counter(words)
 		
 		for word, count in c.most_common():
-			file_output.write(word + " " + str(count)) 
+			file_output.write(word + " " + str(count) + "\n") 
