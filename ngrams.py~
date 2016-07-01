@@ -13,7 +13,7 @@ import re, string, random, glob, operator, heapq
 from collections import defaultdict
 from math import log10
 
-def memo(f):
+def memo(f):																#To increase the speed of the code during reruns
     "Memoize function f."
     table = {}
     def fmemo(*args):
@@ -213,7 +213,6 @@ def corrections(text):
 def correct(w): 
     "Return the word that is the most likely spell correction of w."
     #IMPLEMENT CHECKING FOR NUMBERS AND SPECIAL CHARACTERS
-    #ALSO CHANGE THE IMAGES INTO BLACK AND WHITE AND THEN RUN THE OCR, MAYBE YOU WILL GEt better results also rotate the text to make it horizontal!
     
     #if(w.isdigit):
     	#return w
@@ -238,7 +237,7 @@ p_spell_error = 1./20.
 
 P1edit = Pdist(datafile('count_1edit.txt')) ## Probabilities of single edits 
 
-def edits(word, d=2): 
+def edits(word, d=3): 
     "Return a dict of {correct: edit} pairs within d edits of word." 
     results = {} 
     def editsR(hd, tl, d, edits): 

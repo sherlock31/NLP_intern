@@ -12,7 +12,7 @@ def rotate_image(image_path, angle):
 	rotated_path = image_path.replace('.jpg','_rotated.jpg') 	#name of the rotated image will be original_rotated.jpg
 	print "Skew correction is finished"							
 	
-	#Let's crop the rotated image now or else black borders may be introduced which may hamper with OCR
+	#Crop the rotated image now or else black borders may be introduced which may hamper with OCR
 	
 	if angle > 0:													
 		swap_variable = w

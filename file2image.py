@@ -2,7 +2,7 @@ from wand.image import Image
 from wand.color import Color
 	
 def file2image(filepath):
-	"This function accepts a input file, it converts into a .tif image using wand module"
+	"This function accepts a input file, it converts into a .jpg image using wand module"
 	
 	file_type = ''
 	for w in reversed(filepath):			
@@ -18,7 +18,6 @@ def file2image(filepath):
 	with Image(filename = filepath, resolution = 400) as img:	#resolution is 400 DPI
 		img.format = 'jpeg'										#image format will be jpeg
 		img.compression_quality = 100							#compression quality
-		#img.type = 'grayscale'
 		img.compression = 'losslessjpeg'
 		img.save(filename = image_path)							#saving the image as jpeg
 		print "File has been converted into an image"			

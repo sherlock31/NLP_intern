@@ -237,7 +237,7 @@ p_spell_error = 1./20.
 
 P1edit = Pdist(datafile('count_1edit.txt')) ## Probabilities of single edits 
 
-def edits(word, d=2): 
+def edits(word, d=4): 
     "Return a dict of {correct: edit} pairs within d edits of word." 
     results = {} 
     def editsR(hd, tl, d, edits): 

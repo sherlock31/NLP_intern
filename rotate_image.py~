@@ -10,7 +10,7 @@ def rotate_image(image_path, angle):
 	rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)		#rotational matrix
 	rotated_img = cv2.warpAffine(img, rot_mat, (w,h))			#performing rotation
 	rotated_path = image_path.replace('.jpg','_rotated.jpg') 	#name of the rotated image will be original_rotated.jpg
-	print "skew correction is finished"							
+	print "Skew correction is finished"							
 	
 	#Let's crop the rotated image now or else black borders may be introduced which may hamper with OCR
 	

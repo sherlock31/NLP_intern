@@ -10,7 +10,6 @@ def image2txt(imagepath):
 	
 	print "image to txt conversion is complete"
 	
-	#img = Image.open('/home/sherlock31/Desktop/Intern/testing_29june/15.tif')
 	
 		
 	
