@@ -25,7 +25,7 @@
 # ------------------------------------------------------------------------------
 # 
 ####
-#
+#dic2.txt
 # USAGE: textcleaner [-r rotate] [-l layout] [-c cropoff] [-g] [-e enhance ] [-f filtersize] [-o offset] [-u]  [-t threshold] [-s sharpamt] [-s saturation] [-a adaptblur] [-T] [-p padamt] [-b bgcolor] infile outfile
 # USAGE: textcleaner [-help]
 #
