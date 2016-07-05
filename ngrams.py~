@@ -23,12 +23,12 @@ def memo(f):																#To increase the speed of the code during reruns
     fmemo.memo = table
     return fmemo
 
-def test(verbose=None):
-    """Run some tests, taken from the chapter.
-    Since the hillclimbing algorithm is randomized, some tests may fail."""
-    import doctest
-    print 'Running tests...'
-    doctest.testfile('ngrams-test.txt', verbose=verbose)
+#def test(verbose=None):
+#    """Run some tests, taken from the chapter.
+#    Since the hillclimbing algorithm is randomized, some tests may fail."""
+#    import doctest
+#    print 'Running tests...'
+#    doctest.testfile('ngrams-test.txt', verbose=verbose)
 
 ################ Word Segmentation (p. 223)
 
@@ -60,7 +60,7 @@ class Pdist(dict):
     "A probability distribution estimated from counts in datafile."
     def __init__(self, data=[], N=None, missingfn=None):
         for key,count in data:
-            self[key] = self.get(key, 0) + int(count)
+            self[key] = self.get(key, 0) + float(count)
         self.N = float(N or sum(self.itervalues()))
         self.missingfn = missingfn or (lambda k, N: 1./N)
     def __call__(self, key): 
@@ -68,17 +68,19 @@ class Pdist(dict):
         else: return self.missingfn(key, self.N)
 
 def datafile(name, sep='\t'):
-    "Read key,value pairs from file."
+    "Read key, value pairs from file."
     for line in file(name):
         yield line.split(sep)
-
+	
 def avoid_long_words(key, N):
     "Estimate the probability of an unknown word."
     return 10./(N * 10**len(key))
 
-N = 1024908267229 ## Number of tokens
+#N = 1024908267229 ## Number of tokens, UPDATE IT BASED ON THE CURRENT DICTIONARY OF WORDS 
+#N = 3074724801687
 
-Pw  = Pdist(datafile('count_1w.txt'), N, avoid_long_words)
+Pw  = Pdist(datafile('dic_summed.txt.gz'), missingfn = avoid_long_words)
+
 
 #### segment2: second version, with bigram counts, (p. 226-227)
 
@@ -89,7 +91,7 @@ def cPw(word, prev):
     except KeyError:
         return Pw(word)
 
-P2w = Pdist(datafile('count_2w.txt'), N)
+P2w = Pdist(datafile('count_2w.txt'), )
 
 @memo 
 def segment2(text, prev='<S>'): 
@@ -105,17 +107,17 @@ def combine(Pfirst, first, (Prem, rem)):
 
 ################ Secret Codes (p. 228-230)
 
-def encode(msg, key): 
-    "Encode a message with a substitution cipher." 
-    return msg.translate(string.maketrans(ul(alphabet), ul(key))) 
+#def encode(msg, key): 
+#    "Encode a message with a substitution cipher." 
+#    return msg.translate(string.maketrans(ul(alphabet), ul(key))) 
 
-def ul(text): return text.upper() + text.lower() 
+#def ul(text): return text.upper() + text.lower() 
 
 alphabet = 'abcdefghijklmnopqrstuvwxyz' 
 
-def shift(msg, n=13): 
-    "Encode a message with a shift (Caesar) cipher." 
-    return encode(msg, alphabet[n:]+alphabet[:n]) 
+#def shift(msg, n=13): 
+#    "Encode a message with a shift (Caesar) cipher." 
+#    return encode(msg, alphabet[n:]+alphabet[:n]) 
 
 def logPwords(words): 
     "The Naive Bayes probability of a string or sequence of words." 
@@ -126,26 +128,26 @@ def allwords(text):
     "Return a list of alphabetic words in text, lowercase." 
     return re.findall('[a-z]+', text.lower()) 
 
-def decode_shift(msg): 
-    "Find the best decoding of a message encoded with a shift cipher." 
-    candidates = [shift(msg, n) for n in range(len(alphabet))] 
-    return max(candidates, key=logPwords) 
+#def decode_shift(msg): 
+#    "Find the best decoding of a message encoded with a shift cipher." 
+#    candidates = [shift(msg, n) for n in range(len(alphabet))] 
+#    return max(candidates, key=logPwords) 
 
-def shift2(msg, n=13): 
-    "Encode with a shift (Caesar) cipher, yielding only letters [a-z]." 
-    return shift(just_letters(msg), n) 
+#def shift2(msg, n=13): 
+#    "Encode with a shift (Caesar) cipher, yielding only letters [a-z]." 
+#    return shift(just_letters(msg), n) 
 
 def just_letters(text): 
     "Lowercase text and remove all characters except [a-z]." 
     return re.sub('[^a-z]', '', text.lower()) 
 
-def decode_shift2(msg): 
-    "Decode a message encoded with a shift cipher, with no spaces." 
-    candidates = [segment2(shift(msg, n)) for n in range(len(alphabet))] 
-    p, words = max(candidates) 
-    return ' '.join(words) 
+#def decode_shift2(msg): 
+#    "Decode a message encoded with a shift cipher, with no spaces." 
+#    candidates = [segment2(shift(msg, n)) for n in range(len(alphabet))] 
+#    p, words = max(candidates) 
+#    return ' '.join(words) 
 
-#### General substitution cipher (p. 231-233)
+##### General substitution cipher (p. 231-233)
 
 def logP3letters(text): 
     "The log-probability of text using a letter 3-gram model." 
@@ -173,36 +175,36 @@ def hillclimb(x, f, neighbors, steps=10000):
 
 debugging = False 
 
-def decode_subst(msg, steps=4000, restarts=90): 
-    "Decode a substitution cipher with random restart hillclimbing." 
-    msg = cat(allwords(msg)) 
-    candidates = [hillclimb(encode(msg, key=cat(shuffled(alphabet))), 
-                            logP3letters, neighboring_msgs, steps) 
-                  for _ in range(restarts)] 
-    p, words = max(segment2(c) for c in candidates) 
-    return ' '.join(words) 
+#def decode_subst(msg, steps=4000, restarts=90): 
+#    "Decode a substitution cipher with random restart hillclimbing." 
+#    msg = cat(allwords(msg)) 
+#    candidates = [hillclimb(encode(msg, key=cat(shuffled(alphabet))), 
+#                            logP3letters, neighboring_msgs, steps) 
+#                  for _ in range(restarts)] 
+#    p, words = max(segment2(c) for c in candidates) 
+#    return ' '.join(words) 
 
-def shuffled(seq): 
-    "Return a randomly shuffled copy of the input sequence." 
-    seq = list(seq) 
-    random.shuffle(seq) 
-    return seq 
+#def shuffled(seq): 
+#    "Return a randomly shuffled copy of the input sequence." 
+#    seq = list(seq) 
+#    random.shuffle(seq) 
+#    return seq 
 
 cat = ''.join 
 
-def neighboring_msgs(msg): 
-    "Generate nearby keys, hopefully better ones." 
-    def swap(a,b): return msg.translate(string.maketrans(a+b, b+a)) 
-    for bigram in heapq.nsmallest(20, set(ngrams(msg, 2)), P2l): 
-        b1,b2 = bigram 
-        for c in alphabet: 
-            if b1==b2: 
-                if P2l(c+c) > P2l(bigram): yield swap(c,b1) 
-            else: 
-                if P2l(c+b2) > P2l(bigram): yield swap(c,b1) 
-                if P2l(b1+c) > P2l(bigram): yield swap(c,b2) 
-    while True: 
-        yield swap(random.choice(alphabet), random.choice(alphabet)) 
+#def neighboring_msgs(msg): 
+#    "Generate nearby keys, hopefully better ones." 
+#    def swap(a,b): return msg.translate(string.maketrans(a+b, b+a)) 
+#    for bigram in heapq.nsmallest(20, set(ngrams(msg, 2)), P2l): 
+#        b1,b2 = bigram 
+#        for c in alphabet: 
+#            if b1==b2: 
+#                if P2l(c+c) > P2l(bigram): yield swap(c,b1) 
+#            else: 
+#                if P2l(c+b2) > P2l(bigram): yield swap(c,b1) 
+#                if P2l(b1+c) > P2l(bigram): yield swap(c,b2) 
+#    while True: 
+#        yield swap(random.choice(alphabet), random.choice(alphabet)) 
 
 ################ Spelling Correction (p. 236-)
 
@@ -237,7 +239,7 @@ p_spell_error = 1./20.
 
 P1edit = Pdist(datafile('count_1edit.txt')) ## Probabilities of single edits 
 
-def edits(word, d=3): 
+def edits(word, d=4): 
     "Return a dict of {correct: edit} pairs within d edits of word." 
     results = {} 
     def editsR(hd, tl, d, edits): 
