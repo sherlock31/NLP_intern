@@ -1,11 +1,5 @@
 import os
 from ocr import ocr
-#from pdf2image import pdf2image
-#from calc_angle import calc_angle
-#from rotate_image import rotate_image
-#from denoise_kaggle import denoise 
-#from rgb2gray import rgb2gray
-from image2txt import image2txt
 
 def folder_run(folder_path):
 	"This function accepts path to a folder as input and runs the OCR function on all the files"
