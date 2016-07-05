@@ -76,7 +76,7 @@ def avoid_long_words(key, N):
     "Estimate the probability of an unknown word."
     return 10./(N * 10**len(key))
 
-N = 1024908267229 ## Number of tokens
+N = 1024908267229 ## Number of tokens, UPDATE IT BASED ON THE CURRENT DICTIONARY OF WORDS 
 
 Pw  = Pdist(datafile('count_1w.txt'), N, avoid_long_words)
 

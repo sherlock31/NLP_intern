@@ -6,6 +6,7 @@ import shutil
 from pyPdf import PdfFileReader
 import pytesseract
 from PIL import Image
+from docx import *
 
 def ocr(filepath):
 	"This function takes path to an a input file as output, runs OCR on it using Google's Tesseract OCR engine and stores the textual data in a text file"
@@ -179,11 +180,63 @@ def ocr(filepath):
 		image2txt(new_folder_path + "/" + name_of_image[:-4] + "_gray_rotated_improved.jpg")
 		print "OCR is finished successfull"	
 		
+	elif(filepath.endswith('.doc'):
+		new_folder_path = filepath[:-4]	
+		os.makedirs(new_folder_path)									#make a new folder for the png, name of the folder will be same as that of the png
+		shutil.move(filepath, new_folder_path)							#doc is moved to the newly created of the same name 
+		
+		for w in reversed(filepath):									#to find the name of the image from the path 
+			if(w == '/'):
+				break
+			else:
+				 name_of_doc = name_of_doc + w							#name_of_doc stores the name of the image(reversed)
+				
+		name_of_doc = name_of_doc[::-1]									#reversing the name of the image as it was originally reversed
+		new_path_to_file = new_folder_path + "/" + name_of_doc 
+		
+		os.system('antiword' + new_path_to_file + '>' new_path_to_file[:-4] + '.txt')		#converting doc to txt 
+		
+	elif(filepath.endswith('.docx')):
+		
+		new_folder_path = filepath[:-5]	
+		os.makedirs(new_folder_path)									#make a new folder for the jpeg, name of the folder will be same as that of the jpeg
+		shutil.move(filepath, new_folder_path)							#jpeg is moved to the newly created of the same name 
+		
+		name_of_docx = ""
+	
+		for w in reversed(filepath):									#to find the name of the image from the path 
+			if(w == '/'):
+				break
+			else:
+				 name_of_docx = name_of_docx + w						#name_of_docx stores the name of the image(reversed)
+				
+		name_of_docx = name_of_docx[::-1]								#reversing the name of the docx as it was originally reversed
+		new_path_to_file = new_folder_path + "/" + name_of_docx			#the complete path to the docx
+		
+		newfile = open(new_path_to_file[:-5] + '.txt','w')
+        document = opendocx(new_path_to_file)
+        txt = getdocumenttext(document)
+        
+        for line in txt:
+            newfile.write(line.encode('ascii','ignore')+'nn')
+        newfile.close()
+		
+	elif(filepath.endswith('.odt')):
+		new_folder_path = filepath[:-4]	
+		os.makedirs(new_folder_path)									#make a new folder for the odt, name of the folder will be same as that of the odt
+		shutil.move(filepath, new_folder_path)							#odt is moved to the newly created of the same name 
+		
+		for w in reversed(filepath):									#to find the name of the document from the path 
+			if(w == '/'):
+				break
+			else:
+				 name_of_odt = name_of_odt + w							#name_of_odt stores the name of the document(reversed)
+				
+		name_of_odt = name_of_odt[::-1]									#reversing the name of the odt as it was originally reversed
+		new_path_to_file = new_folder_path + "/" + name_of_odt 
 		
 		
-		
-		
-		
+		os.system('odt2txt ' + new_path_to_file + ' > ' + new_path_to_file[:-4] + '.txt')
 		
 				
 	

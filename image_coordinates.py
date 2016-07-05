@@ -22,12 +22,12 @@ def image_coordinates(image_path):
 		end_point = int(str_temp.find("</em>"))					#index of '<' in </em> tag
 		word = str_temp[start_point:end_point]				
 		
-		if(word):												#if word is not empty 
-			start_point = int(str_temp.find("bbox"))				
-			start_point += 5
-			end_point = int(str_temp.find(";"))
-			bounding_box = str_temp[start_point:end_point]			
-			f.write(word + " " + bounding_box + "\n")
+		#if(not (word == '')):												#if word is not empty 
+		start_point = int(str_temp.find("bbox"))				
+		start_point += 5
+		end_point = int(str_temp.find(";"))
+		bounding_box = str_temp[start_point:end_point]			
+		f.write(word + " " + bounding_box + "\n")
 		
 	
 			
